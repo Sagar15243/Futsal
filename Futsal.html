@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futsal Friday ⚽</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 25s infinite;
+        }
+
+        .bg-animation span:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; }
+        .bg-animation span:nth-child(2) { left: 20%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .bg-animation span:nth-child(3) { left: 35%; width: 60px; height: 60px; animation-delay: 4s; }
+        .bg-animation span:nth-child(4) { left: 50%; width: 40px; height: 40px; animation-delay: 0s; animation-duration: 18s; }
+        .bg-animation span:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .bg-animation span:nth-child(6) { left: 75%; width: 70px; height: 70px; animation-delay: 3s; }
+        .bg-animation span:nth-child(7) { left: 85%; width: 50px; height: 50px; animation-delay: 7s; }
+        .bg-animation span:nth-child(8) { left: 45%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .header .emoji-top {
+            font-size: 60px;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00f260, #0575e6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 10px;
+        }
+
+        .header p.subtitle {
+            font-size: 1.1em;
+            color: #b8b8d4;
+            margin-top: 5px;
+        }
+
+        /* Game Info Card */
+        .game-info {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin: 25px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-item .icon {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .info-item .label {
+            font-size: 0.75em;
+            color: #8888aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-item .value {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #e0e0ff;
+        }
+
+        /* This Week's Date */
+        .week-date {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(0, 242, 96, 0.15), rgba(5, 117, 230, 0.15));
+            border-radius: 15px;
+            border: 1px solid rgba(0, 242, 96, 0.2);
+        }
+
+        .week-date h3 {
+            color: #00f260;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .week-date p {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Poll Section */
+        .poll-section {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 35px 30px;
+            margin: 25px 0;
+        }
+
+        .poll-section h2 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .poll-section .question {
+            text-align: center;
+            color: #9999bb;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        /* Poll Bars */
+        .poll-results {
+            margin-bottom: 30px;
+        }
+
+        .poll-bar-container {
+            margin-bottom: 15px;
+        }
+
+        .poll-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .poll-bar-label {
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .poll-bar-label.yes { color: #00f260; }
+        .poll-bar-label.no { color: #ff6b6b; }
+        .poll-bar-label.maybe { color: #ffd93d; }
+
+        .poll-bar-count {
+            font-size: 0.9em;
+            color: #8888aa;
+        }
+
+        .poll-bar-track {
+            width: 100%;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .poll-bar-fill {
+            height: 100%;
+            border-radius: 18px;
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            min-width: 0;
+        }
+
+        .poll-bar-fill.yes {
+            background: linear-gradient(90deg, #00f260, #0575e6);
+        }
+
+        .poll-bar-fill.no {
+            background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+        }
+
+        .poll-bar-fill.maybe {
+            background: linear-gradient(90deg, #ffd93d, #ff9f43);
+        }
+
+        .poll-bar-percentage {
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Vote Buttons */
+        .vote-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .vote-btn {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vote-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .vote-btn:hover::before {
+            left: 100%;
+        }
+
+        .vote-btn.yes-btn {
+            background: linear-gradient(135deg, #00f260, #0575e6);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 242, 96, 0.3);
+        }
+
+        .vote-btn.yes-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 242, 96, 0.5);
+        }
+
+        .vote-btn.no-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .vote-btn.no-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.5);
+        }
+
+        .vote-btn.maybe-btn {
+            background: linear-gradient(135deg, #ffd93d, #ff9f43);
+            color: #333;
+            box-shadow: 0 4px 20px rgba(255, 217, 61, 0.3);
+        }
+
+        .vote-btn.maybe-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 217, 61, 0.5);
+        }
+
+        .vote-btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        /* Total votes */
+        .total-votes {
+            text-align: center;
+            margin-top: 20px;
+            color: #8888aa;
+            font-size: 0.9em;
+        }
+
+        .total-votes span {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Voters List */
+        .voters-section {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .voters-section h2 {
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .voters-tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .voters-tab {
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: transparent;
+            color: #b8b8d4;
+            transition: all 0.3s ease;
+        }
+
+        .voters-tab.active,
+        .voters-tab:hover {
+            color: #fff;
+        }
+
+        .voters-tab.active.tab-all { border-color: #b8b8d4; background: rgba(255,255,255,0.1); }
+        .voters-tab.active.tab-yes { border-color: #00f260; background: rgba(0, 242, 96, 0.15); color: #00f260; }
+        .voters-tab.active.tab-no { border-color: #ff6b6b; background: rgba(255, 107, 107, 0.15); color: #ff6b6b; }
+        .voters-tab.active.tab-maybe { border-color: #ffd93d; background: rgba(255, 217, 61, 0.15); color: #ffd93d; }
+
+        .voters-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .voters-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .voters-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .voters-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+
+        .voter-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .voter-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .voter-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .voter-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        .voter-avatar.yes { background: rgba(0, 242, 96, 0.2); color: #00f260; }
+        .voter-avatar.no { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+        .voter-avatar.maybe { background: rgba(255, 217, 61, 0.2); color: #ffd93d; }
+
+        .voter-name {
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .voter-time {
+            font-size: 0.75em;
+            color: #6666888;
+        }
+
+        .vote-badge {
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .vote-badge.yes { background: rgba(0, 242, 96, 0.15); color: #00f260; }
+        .vote-badge.no { background: rgba(255, 107, 107, 0.15); color: #ff6b6b; }
+        .vote-badge.maybe { background: rgba(255, 217, 61, 0.15); color: #ffd93d; }
+
+        .no-voters {
+            text-align: center;
+            color: #6666888;
+            padding: 30px;
+            font-size: 0.95em;
+        }
+
+        .no-voters .emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: linear-gradient(145deg, #1e1b4b, #312e81);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 420px;
+            animation: modalSlide 0.4s ease;
+            position: relative;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #8888aa;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal h3 {
+            text-align: center;
+            font-size: 1.4em;
+            margin-bottom: 8px;
+        }
+
+        .modal .modal-subtitle {
+            text-align: center;
+            color: #9999bb;
+            margin-bottom: 25px;
+            font-size: 0.9em;
+        }
+
+        .modal .vote-type-display {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .modal .vote-type-display.yes {
+            background: rgba(0, 242, 96, 0.1);
+            color: #00f260;
+        }
+
+        .modal .vote-type-display.no {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+        }
+
+        .modal .vote-type-display.maybe {
+            background: rgba(255, 217, 61, 0.1);
+            color: #ffd93d;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input::placeholder {
+            color: #6666888;
+        }
+
+        .input-group input:focus {
+            border-color: #0575e6;
+        }
+
+        .input-error {
+            color: #ff6b6b;
+            font-size: 0.8em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .submit-vote-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #0575e6, #00f260);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-vote-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(5, 117, 230, 0.4);
+        }
+
+        .submit-vote-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Already voted state */
+        .already-voted {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .already-voted p {
+            color: #b8b8d4;
+            margin-bottom: 10px;
+        }
+
+        .already-voted .voter-current-name {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .change-vote-btn {
+            margin-top: 10px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: transparent;
+            color: #b8b8d4;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-vote-btn:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        /* Reset button */
+        .reset-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .reset-btn {
+            padding: 10px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            background: transparent;
+            color: #6666888;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 15px 30px;
+            border-radius: 14px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            z-index: 2000;
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #00f260, #0575e6);
+            color: #fff;
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #ffd93d, #ff9f43);
+            color: #333;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #555577;
+            font-size: 0.8em;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .game-info {
+                padding: 20px;
+            }
+
+            .poll-section {
+                padding: 25px 20px;
+            }
+
+            .vote-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .vote-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .modal {
+                padding: 30px 25px;
+                margin: 15px;
+            }
+        }
+
+        /* Confetti animation */
+        .confetti-piece {
+            position: fixed;
+            z-index: 3000;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="emoji-top">⚽</div>
+            <h1>Futsal Friday</h1>
+            <p class="subtitle">Weekly pickup game — Are you in?</p>
+        </div>
+
+        <!-- Game Info -->
+        <div class="game-info">
+            <div class="info-item">
+                <div class="icon">📅</div>
+                <div class="label">Day</div>
+                <div class="value">Every Friday</div>
+            </div>
+            <div class="info-item">
+                <div class="icon">⏰</div>
+                <div class="label">Time</div>
+                <div class="value">6:00 - 7:00 PM</div>
+            </div>
+            <div class="info-item">
+                <div class="icon">🏟️</div>
+                <div class="label">Sport</div>
+                <div class="value">Futsal</div>
+            </div>
+        </div>
+
+        <!-- This Week's Date -->
+        <div class="week-date">
+            <h3>📌 This Week's Game</h3>
+            <p id="thisWeekDate"></p>
+        </div>
+
+        <!-- Poll Section -->
+        <div class="poll-section">
+            <h2>🗳️ Vote Now</h2>
+            <p class="question">Are you joining this Friday's game?</p>
+
+            <!-- Poll Bars -->
+            <div class="poll-results">
+                <div class="poll-bar-container">
+                    <div class="poll-bar-header">
+                        <span class="poll-bar-label yes">✅ Yes, I'm in!</span>
+                        <span class="poll-bar-count" id="yesCount">0 votes</span>
+                    </div>
+                    <div class="poll-bar-track">
+                        <div class="poll-bar-fill yes" id="yesBar" style="width: 0%">
+                            <span class="poll-bar-percentage" id="yesPercent"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="poll-bar-container">
+                    <div class="poll-bar-header">
+                        <span class="poll-bar-label no">❌ Can't make it</span>
+                        <span class="poll-bar-count" id="noCount">0 votes</span>
+                    </div>
+                    <div class="poll-bar-track">
+                        <div class="poll-bar-fill no" id="noBar" style="width: 0%">
+                            <span class="poll-bar-percentage" id="noPercent"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="poll-bar-container">
+                    <div class="poll-bar-header">
+                        <span class="poll-bar-label maybe">🤔 Maybe</span>
+                        <span class="poll-bar-count" id="maybeCount">0 votes</span>
+                    </div>
+                    <div class="poll-bar-track">
+                        <div class="poll-bar-fill maybe" id="maybeBar" style="width: 0%">
+                            <span class="poll-bar-percentage" id="maybePercent"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vote Buttons -->
+            <div class="vote-buttons" id="voteButtons">
+                <button class="vote-btn yes-btn" onclick="openModal('yes')">
+                    👍 Yes, I'm In!
+                </button>
+                <button class="vote-btn maybe-btn" onclick="openModal('maybe')">
+                    🤷 Maybe
+                </button>
+                <button class="vote-btn no-btn" onclick="openModal('no')">
+                    👎 Not This Week
+                </button>
+            </div>
+
+            <!-- Already Voted State -->
+            <div class="already-voted" id="alreadyVoted">
+                <p>You already voted as</p>
+                <div class="voter-current-name" id="currentVoterName"></div>
+                <div id="currentVoteType" style="margin-top: 5px;"></div>
+                <button class="change-vote-btn" onclick="changeVote()">🔄 Change my vote</button>
+            </div>
+
+            <div class="total-votes">
+                Total votes: <span id="totalVotes">0</span>
+            </div>
+        </div>
+
+        <!-- Voters List -->
+        <div class="voters-section">
+            <h2>👥 Voters List</h2>
+
+            <div class="voters-tabs">
+                <button class="voters-tab tab-all active" onclick="filterVoters('all', this)">All</button>
+                <button class="voters-tab tab-yes" onclick="filterVoters('yes', this)">✅ Yes</button>
+                <button class="voters-tab tab-no" onclick="filterVoters('no', this)">❌ No</button>
+                <button class="voters-tab tab-maybe" onclick="filterVoters('maybe', this)">🤔 Maybe</button>
+            </div>
+
+            <div class="voters-list" id="votersList">
+                <div class="no-voters" id="noVotersMsg">
+                    <div class="emoji">🦗</div>
+                    <p>No votes yet. Be the first to vote!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reset -->
+        <div class="reset-section">
+            <button class="reset-btn" onclick="resetPoll()">🗑️ Reset All Votes</button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>⚽ Futsal Friday — See you on the court!</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>✍️ Enter Your Name</h3>
+            <p class="modal-subtitle">So we know who's playing!</p>
+
+            <div class="vote-type-display" id="voteTypeDisplay"></div>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="e.g. Ahmad, Sarah, etc."
+                    maxlength="30"
+                    onkeydown="if(event.key==='Enter') submitVote()"
+                    autocomplete="off"
+                >
+                <div class="input-error" id="inputError">Please enter your name!</div>
+            </div>
+
+            <button class="submit-vote-btn" onclick="submitVote()">
+                🚀 Submit Vote
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== DATA =====
+        let voters = JSON.parse(localStorage.getItem('futsalVoters')) || [];
+        let currentFilter = 'all';
+        let selectedVoteType = '';
+
+        // ===== INIT =====
+        function init() {
+            setThisWeekDate();
+            checkExistingVoter();
+            updatePoll();
+            renderVotersList();
+        }
+
+        // ===== DATE LOGIC =====
+        function getNextFriday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilFriday = (5 - dayOfWeek + 7) % 7;
+            const nextFriday = new Date(today);
+
+            if (daysUntilFriday === 0) {
+                // Today is Friday
+                return today;
+            }
+
+            nextFriday.setDate(today.getDate() + daysUntilFriday);
+            return nextFriday;
+        }
+
+        function setThisWeekDate() {
+            const friday = getNextFriday();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('thisWeekDate').textContent =
+                `Friday, ${friday.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} — 6:00 PM`;
+        }
+
+        // ===== MODAL =====
+        function openModal(voteType) {
+            selectedVoteType = voteType;
+            const display = document.getElementById('voteTypeDisplay');
+
+            const labels = {
+                yes: '✅ Yes, I\'m In!',
+                no: '❌ Can\'t Make It',
+                maybe: '🤔 Maybe'
+            };
+
+            display.textContent = labels[voteType];
+            display.className = 'vote-type-display ' + voteType;
+
+            document.getElementById('modalOverlay').classList.add('show');
+            document.getElementById('inputError').style.display = 'none';
+
+            setTimeout(() => {
+                document.getElementById('nameInput').focus();
+            }, 300);
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('show');
+            document.getElementById('nameInput').value = '';
+            document.getElementById('inputError').style.display = 'none';
+        }
+
+        // Close modal on overlay click
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ===== VOTING =====
+        function submitVote() {
+            const nameInput = document.getElementById('nameInput');
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                document.getElementById('inputError').style.display = 'block';
+                nameInput.style.borderColor = '#ff6b6b';
+                nameInput.focus();
+                return;
+            }
+
+            // Check if name already exists
+            const existingIndex = voters.findIndex(v => v.name.toLowerCase() === name.toLowerCase());
+
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            if (existingIndex !== -1) {
+                // Update existing vote
+                voters[existingIndex].vote = selectedVoteType;
+                voters[existingIndex].time = timeString;
+                showToast('info', `Vote updated for ${name}!`);
+            } else {
+                // Add new voter
+                voters.push({
+                    name: name,
+                    vote: selectedVoteType,
+                    time: timeString
+                });
+
+                if (selectedVoteType === 'yes') {
+                    launchConfetti();
+                }
+
+                showToast('success', `Thanks ${name}! Vote recorded! ⚽`);
+            }
+
+            // Save to localStorage
+            localStorage.setItem('futsalVoters', JSON.stringify(voters));
+            localStorage.setItem('futsalCurrentVoter', name);
+
+            closeModal();
+            checkExistingVoter();
+            updatePoll();
+            renderVotersList();
+        }
+
+        // ===== CHECK EXISTING VOTER =====
+        function checkExistingVoter() {
+            const currentVoter = localStorage.getItem('futsalCurrentVoter');
+            if (currentVoter) {
+                const voter = voters.find(v => v.name.toLowerCase() === currentVoter.toLowerCase());
+                if (voter) {
+                    document.getElementById('alreadyVoted').style.display = 'block';
+                    document.getElementById('currentVoterName').textContent = voter.name;
+
+                    const badges = { yes: '✅ Yes', no: '❌ No', maybe: '🤔 Maybe' };
+                    document.getElementById('currentVoteType').innerHTML =
+                        `<span class="vote-badge ${voter.vote}">${badges[voter.vote]}</span>`;
+                    return;
+                }
+            }
+            document.getElementById('alreadyVoted').style.display = 'none';
+        }
+
+        function changeVote() {
+            document.getElementById('alreadyVoted').style.display = 'none';
+        }
+
+        // ===== UPDATE POLL =====
+        function updatePoll() {
+            const total = voters.length;
+            const yesVotes = voters.filter(v => v.vote === 'yes').length;
+            const noVotes = voters.filter(v => v.vote === 'no').length;
+            const maybeVotes = voters.filter(v => v.vote === 'maybe').length;
+
+            const yesPercent = total ? Math.round((yesVotes / total) * 100) : 0;
+            const noPercent = total ? Math.round((noVotes / total) * 100) : 0;
+            const maybePercent = total ? Math.round((maybeVotes / total) * 100) : 0;
+
+            document.getElementById('yesBar').style.width = yesPercent + '%';
+            document.getElementById('noBar').style.width = noPercent + '%';
+            document.getElementById('maybeBar').style.width = maybePercent + '%';
+
+            document.getElementById('yesPercent').textContent = yesPercent > 8 ? yesPercent + '%' : '';
+            document.getElementById('noPercent').textContent = noPercent > 8 ? noPercent + '%' : '';
+            document.getElementById('maybePercent').textContent = maybePercent > 8 ? maybePercent + '%' : '';
+
+            document.getElementById('yesCount').textContent = yesVotes + (yesVotes === 1 ? ' vote' : ' votes');
+            document.getElementById('noCount').textContent = noVotes + (noVotes === 1 ? ' vote' : ' votes');
+            document.getElementById('maybeCount').textContent = maybeVotes + (maybeVotes === 1 ? ' vote' : ' votes');
+
+            document.getElementById('totalVotes').textContent = total;
+        }
+
+        // ===== RENDER VOTERS =====
+        function renderVotersList() {
+            const list = document.getElementById('votersList');
+            const noMsg = document.getElementById('noVotersMsg');
+
+            let filteredVoters = currentFilter === 'all'
+                ? voters
+                : voters.filter(v => v.vote === currentFilter);
+
+            if (filteredVoters.length === 0) {
+                list.innerHTML = `
+                    <div class="no-voters">
+                        <div class="emoji">🦗</div>
+                        <p>${currentFilter === 'all' ? 'No votes yet. Be the first to vote!' : 'No one voted ' + currentFilter + ' yet.'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const badges = {
+                yes: { text: '✅ Playing', class: 'yes' },
+                no: { text: '❌ Out', class: 'no' },
+                maybe: { text: '🤔 Maybe', class: 'maybe' }
+            };
+
+            list.innerHTML = filteredVoters.map((voter, i) => `
+                <div class="voter-card" style="animation-delay: ${i * 0.05}s">
+                    <div class="voter-info">
+                        <div class="voter-avatar ${voter.vote}">
+                            ${voter.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                            <div class="voter-name">${escapeHtml(voter.name)}</div>
+                            <div class="voter-time">${voter.time}</div>
+                        </div>
+                    </div>
+                    <span class="vote-badge ${badges[voter.vote].class}">
+                        ${badges[voter.vote].text}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        // ===== FILTER TABS =====
+        function filterVoters(filter, btn) {
+            currentFilter = filter;
+
+            document.querySelectorAll('.voters-tab').forEach(tab => tab.classList.remove('active'));
+            btn.classList.add('active');
+
+            renderVotersList();
+        }
+
+        // ===== RESET =====
+        function resetPoll() {
+            if (confirm('⚠️ Are you sure you want to reset ALL votes? This cannot be undone!')) {
+                voters = [];
+                localStorage.removeItem('futsalVoters');
+                localStorage.removeItem('futsalCurrentVoter');
+                document.getElementById('alreadyVoted').style.display = 'none';
+                updatePoll();
+                renderVotersList();
+                showToast('info', 'All votes have been reset! 🔄');
+            }
+        }
+
+        // ===== TOAST =====
+        function showToast(type, message) {
+            const toast = document.getElementById('toast');
+            toast.className = 'toast ' + type;
+            toast.innerHTML = message;
+
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ===== CONFETTI =====
+        function launchConfetti() {
+            const colors = ['#00f260', '#0575e6', '#ffd93d', '#ff6b6b', '#fff'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.cssText = `
+                    left: ${Math.random() * 100}vw;
+                    top: -10px;
+                    width: ${Math.random() * 10 + 5}px;
+                    height: ${Math.random() * 10 + 5}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                    animation: confettiFall ${Math.random() * 2 + 2}s ease forwards;
+                    animation-delay: ${Math.random() * 0.5}s;
+                `;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4000);
+            }
+
+            // Add confetti animation dynamically
+            if (!document.getElementById('confettiStyle')) {
+                const style = document.createElement('style');
+                style.id = 'confettiStyle';
+                style.textContent = `
+                    @keyframes confettiFall {
+                        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // ===== HELPERS =====
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===== START =====
+        init();
+    </script>
+</body>
+</html>
